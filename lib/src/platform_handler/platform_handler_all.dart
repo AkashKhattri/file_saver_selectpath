@@ -19,14 +19,11 @@ class PlatformHandlerAll extends PlatformHandler {
       'Something went wrong, please report the issue https://www.github.com/incrediblezayed/file_saver/issues';
   late String directory = _somethingWentWrong;
 
-  final String _issueLink =
-      'https://www.github.com/incrediblezayed/file_saver/issues';
+  final String _issueLink = 'https://www.github.com/incrediblezayed/file_saver/issues';
 
   Future<String> saveFileForAndroid(FileModel fileModel) async {
     try {
-      directory =
-          await _channel.invokeMethod<String>(_saveFile, fileModel.toMap()) ??
-              '';
+      directory = await _channel.invokeMethod<String>(_saveFile, fileModel.toMap()) ?? '';
     } catch (e) {
       log('Error: $e');
     }
@@ -35,7 +32,12 @@ class PlatformHandlerAll extends PlatformHandler {
 
   Future<String> saveFileForOtherPlatforms(FileModel fileModel) async {
     String path = '';
-    path = await Helpers.getDirectory() ?? '';
+    if (fileModel.savePath.isNotEmpty || fileModel.savePath != '') {
+      path = fileModel.savePath;
+    } else {
+      path = await Helpers.getDirectory() ?? '';
+    }
+
     if (path == '') {
       log('The path was found null or empty, please report the issue at $_issueLink');
     } else {

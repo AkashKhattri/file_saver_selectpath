@@ -20,8 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   TextEditingController textEditingController = TextEditingController();
   TextEditingController linkController = TextEditingController(
-      text:
-          "https://i.pinimg.com/564x/80/d4/90/80d490f65d5e6132b2a6e3b5883785f3.jpg");
+      text: "https://i.pinimg.com/564x/80/d4/90/80d490f65d5e6132b2a6e3b5883785f3.jpg");
   TextEditingController extController = TextEditingController(text: "jpg");
 
   @override
@@ -57,9 +56,7 @@ class _MyAppState extends State<MyApp> {
                 child: TextField(
                   controller: textEditingController,
                   decoration: const InputDecoration(
-                      labelText: "Name",
-                      hintText: "Something",
-                      border: OutlineInputBorder()),
+                      labelText: "Name", hintText: "Something", border: OutlineInputBorder()),
                 ),
               ),
             ),
@@ -82,9 +79,7 @@ class _MyAppState extends State<MyApp> {
                 child: TextField(
                   controller: extController,
                   decoration: const InputDecoration(
-                      labelText: "Extension",
-                      hintText: "jpg",
-                      border: OutlineInputBorder()),
+                      labelText: "Extension", hintText: "jpg", border: OutlineInputBorder()),
                 ),
               ),
             ),
@@ -109,13 +104,13 @@ class _MyAppState extends State<MyApp> {
                     }
                   }
                   if (type != MimeType.other && extController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Extension is required")));
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(content: Text("Extension is required")));
                   }
 
                   if (linkController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Link is required")));
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(content: Text("Link is required")));
                   }
 
                   //!Code for testing bytes
@@ -127,9 +122,7 @@ class _MyAppState extends State<MyApp> {
                   }
 
                   String path = await FileSaver.instance.saveFile(
-                      name: textEditingController.text == ""
-                          ? "File"
-                          : textEditingController.text,
+                      name: textEditingController.text == "" ? "File" : textEditingController.text,
                       //link:  linkController.text,
                       bytes: Uint8List.fromList(excel.encode()!),
                       ext: 'xlsx',
@@ -144,13 +137,13 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
               onPressed: () async {
                 if (type != MimeType.other && extController.text.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Extension is required")));
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text("Extension is required")));
                 }
 
                 if (linkController.text.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Link is required")));
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text("Link is required")));
                 }
                 /*    if (Platform.isAndroid || Platform.isIOS) {
                   var permission = await Permission.storage.request();
@@ -168,12 +161,11 @@ class _MyAppState extends State<MyApp> {
                   sheetObject.appendRow([i]);
                 }
                 String? path = await FileSaver.instance.saveAs(
-                    name: textEditingController.text == ""
-                        ? "File"
-                        : textEditingController.text,
+                    name: textEditingController.text == "" ? "File" : textEditingController.text,
                     //link:  linkController.text,
                     bytes: Uint8List.fromList(excel.encode()!),
                     ext: 'xlsx',
+                    savePath: "",
 
                     ///extController.text,
                     mimeType: MimeType.microsoftExcel);

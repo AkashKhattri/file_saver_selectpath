@@ -8,11 +8,13 @@ class FileModel {
   final Uint8List bytes;
   final String ext;
   final String mimeType;
+  final String savePath;
   FileModel({
     required this.name,
     required this.bytes,
     required this.ext,
     required this.mimeType,
+    required this.savePath,
   });
 
   FileModel copyWith({
@@ -20,12 +22,14 @@ class FileModel {
     Uint8List? bytes,
     String? ext,
     String? mimeType,
+    String? savePath,
   }) {
     return FileModel(
       name: name ?? this.name,
       bytes: bytes ?? this.bytes,
       ext: ext ?? this.ext,
       mimeType: mimeType ?? this.mimeType,
+      savePath: savePath ?? this.savePath,
     );
   }
 
@@ -35,6 +39,7 @@ class FileModel {
       'bytes': bytes,
       'ext': ext,
       'mimeType': mimeType,
+      'savePath': savePath
     };
   }
 
@@ -44,6 +49,7 @@ class FileModel {
       bytes: Uint8List.fromList(List<int>.from(map['bytes'] as List<dynamic>)),
       ext: map['ext'] as String,
       mimeType: map['mimeType'] as String,
+      savePath: map['savePath'] as String,
     );
   }
 

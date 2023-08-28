@@ -54,12 +54,12 @@ class FileSaver {
       String? filePath,
       LinkDetails? link,
       String ext = '',
+      String savePath = '',
       MimeType mimeType = MimeType.other,
       String? customMimeType}) async {
     assert(mimeType != MimeType.custom || customMimeType != null,
         'customMimeType is required when mimeType is MimeType.custom');
-    bytes = bytes ??
-        await Helpers.getBytes(file: file, filePath: filePath, link: link);
+    bytes = bytes ?? await Helpers.getBytes(file: file, filePath: filePath, link: link);
 
     String extension = Helpers.getExtension(extension: ext);
     try {
@@ -68,8 +68,8 @@ class FileSaver {
               name: name,
               bytes: bytes,
               ext: extension,
-              mimeType:
-                  mimeType.type.isEmpty ? customMimeType! : mimeType.type));
+              savePath: savePath,
+              mimeType: mimeType.type.isEmpty ? customMimeType! : mimeType.type));
       directory = await _saver.save() ?? _somethingWentWrong;
       return directory;
     } catch (e) {
@@ -109,21 +109,21 @@ class FileSaver {
     String? filePath,
     LinkDetails? link,
     required String ext,
+    required String savePath,
     required MimeType mimeType,
     String? customMimeType,
   }) async {
     assert(mimeType != MimeType.custom || customMimeType != null,
         'customMimeType is required when mimeType is MimeType.custom');
-    bytes = bytes ??
-        await Helpers.getBytes(file: file, filePath: filePath, link: link);
+    bytes = bytes ?? await Helpers.getBytes(file: file, filePath: filePath, link: link);
 
     _saver = Saver(
         fileModel: FileModel(
             name: name,
             bytes: bytes,
             ext: ext,
-            mimeType:
-                mimeType == MimeType.custom ? customMimeType! : mimeType.type));
+            savePath: savePath,
+            mimeType: mimeType == MimeType.custom ? customMimeType! : mimeType.type));
     String? path = await _saver.saveAs();
     return path;
   }
